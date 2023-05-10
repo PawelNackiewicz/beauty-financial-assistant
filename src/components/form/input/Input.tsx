@@ -14,7 +14,7 @@ export const Input = ({ fieldId, label, required, placeholder, register, errors,
 
     return (
         <div className="flex flex-col">
-            <label htmlFor={fieldId} className="text-xs mb-2 text-gray-700">{label}</label>
+            <label htmlFor={fieldId} className="text-xs mb-2">{label}</label>
             <input id={fieldId} className="rounded-lg border-2 border-gray-300 bg-gray-100 w-full px-4 shadow-sm" placeholder={placeholder} {...register(fieldId, { required })} {...rest} />
             {errors && <span className="text-xs text-red-500 mt-2" role="alert">Pole jest wymagane</span>}
         </div>
