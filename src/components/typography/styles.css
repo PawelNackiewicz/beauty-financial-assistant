@@ -1,0 +1,22 @@
+.typography--variant-h1 {
+  font-size: 42px;
+  font-weight: 700;
+}
+
+.typography--variant-h2 {
+  font-size: 36px;
+  font-weight: 700;
+}
+
+.typography--variant-h3 {
+  font-size: 28px;
+  font-weight: 500;
+}
+
+.typography--variant-body1 {
+  font-size: 18px;
+}
+
+.typography--variant-body2 {
+  font-size: 16px;
+}
