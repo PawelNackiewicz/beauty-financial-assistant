@@ -1,4 +1,4 @@
-import { Typography } from "@/components/Typography/Typography"
+import { Typography } from "@/components/Typography/Typography";
 
 export default function Home() {
   return (
