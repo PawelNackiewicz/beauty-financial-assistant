@@ -1,3 +1,28 @@
+'use client'
+import { Button } from "@/components/button/Button";
+import { Input } from "@/components/form/input/Input";
+import { Typography } from "@/components/typography/Typography"
+import { useForm } from "react-hook-form";
+
+export interface LoginFormInputs {
+    login?: string
+    password?: string
+};
+
 export default function Page() {
-    return <p className="text-5xl font-bold w-full text-center mt-20">Hello SigIn Page</p>
+    const { register, handleSubmit, formState: { errors }, reset } = useForm<LoginFormInputs>();
+    const onSubmit = (data: LoginFormInputs) => {
+        console.log(data);
+    };
+
+    return (
+        <div className="max-w-xl">
+            <Typography variant="body2" className="text-center">Zaloguj się</Typography>
+            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2">
+                <Input fieldId="login" label="login" register={register} required errors={errors.login} />
+                <Input fieldId="password" label="password" register={register} type="password" required errors={errors.password} />
+                <Button type="submit" label="Zaloguj" />
+            </form>
+        </div>
+    )
 }

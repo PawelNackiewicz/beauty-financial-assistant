@@ -1,12 +1,13 @@
 'use client'
-import React, { ButtonHTMLAttributes, FC } from 'react';
+import React, { ButtonHTMLAttributes, FC, ReactNode } from 'react';
 import clsx from 'clsx';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-    color?: 'primary' | 'secondary' | 'success' | 'error',
     label: string,
     variant?: 'contained' | 'outlined'
-    onClick?: () => void
+    onClick?: () => void,
+    className?: string,
+    icon?: ReactNode
 }
 
 export const Button: FC<ButtonProps> = ({
@@ -14,11 +15,14 @@ export const Button: FC<ButtonProps> = ({
     label,
     variant = 'contained',
     onClick,
+    className,
+    icon,
     ...rest
 }) => {
     return (
-        <button type='button' className={clsx('rounded-lg px-6 py-2', `${variant === 'contained' ? `bg-${color} text-white` : `bg-transparent border-2 border-${color} text-${color}`}`)} onClick={onClick} {...rest}>
+        <button type='button' className={clsx(className, 'flex gap-2 items-center rounded-lg px-6 py-2', `${variant === 'contained' ? `bg-primary text-white` : `bg-transparent border-2 border-primary text-primary`}`)} onClick={onClick} {...rest}>
             {label}
+            {icon}
         </button>
     )
 };
