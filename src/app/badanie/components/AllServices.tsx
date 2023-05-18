@@ -30,12 +30,12 @@ export const AllServices = () => {
         <div>
             <Typography variant="h1">Wymień wszystkie usługi salonu</Typography>
             <form className="flex flex-col items-end" onSubmit={handleSubmit(onSubmit)}>
-                <ul className="w-full flex flex-col justify-center">
+                <ul className="w-full flex flex-col justify-center gap-1">
                     {fields.map((item, index) => {
                         return (
                             <li key={item.id} className="w-full flex gap-2 items-center">
                                 <input
-                                    className="border border-primary rounded-lg w-full"
+                                    className="rounded-lg border-2 border-gray-300 bg-gray-100 w-full px-4 shadow-sm"
                                     defaultValue={`${item.serviceName}`}
                                     {...register(`services.${index}.serviceName`)}
                                 />

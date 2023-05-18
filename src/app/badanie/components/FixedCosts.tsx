@@ -4,7 +4,8 @@ import { RemoveButton } from "@/components/button/RemoveButton";
 import { AddServiceButton } from "./AddServiceButton";
 
 type Cost = {
-    cost?: string
+    costName?: string,
+    costCount?: number
 }
 
 type FormData = {
@@ -14,7 +15,7 @@ type FormData = {
 export const FixedCosts = () => {
     const { register, control, handleSubmit, reset, watch } = useForm<FormData>({
         defaultValues: {
-            fixedCosts: [{ cost: "" }]
+            fixedCosts: [{ costName: "", costCount: 0 }]
         }
     });
     const { fields, append, remove } = useFieldArray(
@@ -30,23 +31,32 @@ export const FixedCosts = () => {
         <div>
             <Typography variant="h1">Wymień wszystkie koszty stałe</Typography>
             <form className="flex flex-col items-end" onSubmit={handleSubmit(onSubmit)}>
-                <ul className="w-full flex flex-col justify-center">
+                <div className="w-full grid grid-cols-12 gap-2">
+                    <Typography variant="body2" className="col-span-8">Nazwa</Typography>
+                    <Typography variant="body2" className="col-span-3">Kwota</Typography>
+                </div>
+                <ul className="w-full flex flex-col justify-center gap-1">
                     {fields.map((item, index) => {
                         return (
-                            <li key={item.id} className="w-full flex gap-2 items-center">
+                            <li key={item.id} className="w-full grid grid-cols-12 gap-2">
                                 <input
-                                    className="border border-primary rounded-lg w-full"
-                                    defaultValue={`${item.cost}`}
-                                    {...register(`fixedCosts.${index}.cost`)}
+                                    className="rounded-lg border-2 border-gray-300 bg-gray-100 w-full px-4 shadow-sm col-span-8"
+                                    defaultValue={`${item.costName}`}
+                                    {...register(`fixedCosts.${index}.costName`)}
                                 />
-                                <RemoveButton onClick={() => remove(index)} />
+                                <input
+                                    className="rounded-lg border-2 border-gray-300 bg-gray-100 w-full px-4 shadow-sm col-span-3"
+                                    defaultValue={`${item.costCount}`}
+                                    {...register(`fixedCosts.${index}.costCount`)}
+                                />
+                                <RemoveButton className="justify-self-end" onClick={() => remove(index)} />
                             </li>
                         );
                     })}
                 </ul>
                 <AddServiceButton
                     onClick={() => {
-                        append({ cost: "" });
+                        append({ costName: "", costCount: 0 });
                     }}
                 />
             </form>
