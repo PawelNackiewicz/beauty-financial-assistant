@@ -36,9 +36,8 @@ export const FixedCosts = () => {
                             <li key={item.id} className="w-full flex gap-2 items-center">
                                 <input
                                     className="border border-primary rounded-lg w-full"
-                                    name={`test[${index}].cost`}
                                     defaultValue={`${item.cost}`}
-                                    register={{ ...register(`services.${index}.cost`) }}
+                                    {...register(`fixedCosts.${index}.cost`)}
                                 />
                                 <RemoveButton onClick={() => remove(index)} />
                             </li>

@@ -36,9 +36,8 @@ export const AllServices = () => {
                             <li key={item.id} className="w-full flex gap-2 items-center">
                                 <input
                                     className="border border-primary rounded-lg w-full"
-                                    name={`test[${index}].serviceName`}
                                     defaultValue={`${item.serviceName}`}
-                                    register={{ ...register(`services.${index}.serviceName`) }}
+                                    {...register(`services.${index}.serviceName`)}
                                 />
                                 <RemoveButton onClick={() => remove(index)} />
                             </li>
