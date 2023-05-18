@@ -1,26 +1,26 @@
 import { useForm, useFieldArray } from "react-hook-form";
 import { Typography } from "@/components/typography/Typography";
 import { RemoveButton } from "@/components/button/RemoveButton";
-import { AddServiceButton } from "@/app/badanie/components/AddServiceButton";
+import { AddServiceButton } from "./AddServiceButton";
 
-type Service = {
-    serviceName?: string
+type Cost = {
+    cost?: string
 }
 
 type FormData = {
-    services: Service[];
+    fixedCosts: Cost[];
 };
 
-export const AllServices = () => {
+export const FixedCosts = () => {
     const { register, control, handleSubmit, reset, watch } = useForm<FormData>({
         defaultValues: {
-            services: [{ serviceName: "" }]
+            fixedCosts: [{ cost: "" }]
         }
     });
     const { fields, append, remove } = useFieldArray(
         {
             control,
-            name: "services"
+            name: "fixedCosts"
         }
     );
 
@@ -28,7 +28,7 @@ export const AllServices = () => {
 
     return (
         <div>
-            <Typography variant="h1">Wymień wszystkie usługi salonu</Typography>
+            <Typography variant="h1">Wymień wszystkie koszty stałe</Typography>
             <form className="flex flex-col items-end" onSubmit={handleSubmit(onSubmit)}>
                 <ul className="w-full flex flex-col justify-center">
                     {fields.map((item, index) => {
@@ -36,18 +36,20 @@ export const AllServices = () => {
                             <li key={item.id} className="w-full flex gap-2 items-center">
                                 <input
                                     className="border border-primary rounded-lg w-full"
-                                    name={`test[${index}].serviceName`}
-                                    defaultValue={`${item.serviceName}`}
-                                    register={{ ...register(`services.${index}.serviceName`) }}
+                                    name={`test[${index}].cost`}
+                                    defaultValue={`${item.cost}`}
+                                    register={{ ...register(`services.${index}.cost`) }}
                                 />
                                 <RemoveButton onClick={() => remove(index)} />
                             </li>
                         );
                     })}
                 </ul>
-                <AddServiceButton onClick={() => {
-                    append({ serviceName: "" });
-                }} />
+                <AddServiceButton
+                    onClick={() => {
+                        append({ cost: "" });
+                    }}
+                />
             </form>
         </div>
     )

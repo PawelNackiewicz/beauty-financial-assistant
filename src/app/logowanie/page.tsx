@@ -19,8 +19,8 @@ export default function Page() {
         <div className="max-w-xl">
             <Typography variant="body2" className="text-center">Zaloguj się</Typography>
             <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2">
-                <Input fieldId="login" label="login" register={register} required errors={errors.login} />
-                <Input fieldId="password" label="password" register={register} type="password" required errors={errors.password} />
+                <Input fieldId="login" label="Login" register={register} required errors={errors.login} />
+                <Input fieldId="password" label="Hasło" register={register} type="password" required errors={errors.password} />
                 <Button type="submit" label="Zaloguj" />
             </form>
         </div>
