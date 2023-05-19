@@ -73,7 +73,7 @@ const SingleServiceCosts = ({ service }: SingleServiceCostsProps) => {
                     })}
                 </ul>
 
-                {errors && errors.depreciationCosts && <span className="text-xs text-red-500 mt-2" role="alert">Pole jest wymagane</span>}
+                {errors && errors.serviceCosts && <span className="text-xs text-red-500 mt-2" role="alert">Pole jest wymagane</span>}
 
                 <AddServiceButton
                     onClick={() => {
