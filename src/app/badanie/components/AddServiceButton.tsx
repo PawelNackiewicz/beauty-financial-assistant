@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Button } from '../../../components/button/Button';
 
 interface AddServiceButtonProps {
     onClick: () => void
 }
 
-export const AddServiceButton = ({ onClick }: AddServiceButtonProps) => {
+export const AddServiceButton: FC<AddServiceButtonProps> = ({ onClick }) => {
     return (
         <Button
             label="Dodaj usługe"

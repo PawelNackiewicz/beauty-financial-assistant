@@ -8,6 +8,7 @@ import { useSteps } from "../../hooks/useSteps";
 import { FixedCosts } from "./components/FixedCosts";
 import { ResearchProvider, useResearch } from "./ResearchContext";
 import { DepreciationCosts } from "./components/DepreciationCosts";
+import { ServiceCosts } from "./components/ServiceCosts";
 
 export default function Page() {
     return (
@@ -34,7 +35,8 @@ const steps = {
     2: AllServices,
     3: CustomerCount,
     4: FixedCosts,
-    5: DepreciationCosts
+    5: DepreciationCosts,
+    6: ServiceCosts
 }
 
 const ReaserchWrapper = () => {
