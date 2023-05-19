@@ -25,7 +25,6 @@ export const AllServices = () => {
     );
 
     const onSubmit = (data: FormData) => {
-        console.log("data", data)
         setServices(data.services)
         goNext()
     }
@@ -54,7 +53,7 @@ export const AllServices = () => {
                     append({ serviceName: "" });
                 }} />
 
-                <Button type="submit" className="self-end" label="Dalej" onClick={handleSubmit(onSubmit)} />
+                <Button type="submit" className="self-end mt-10" label="Dalej" onClick={handleSubmit(onSubmit)} />
             </form>
         </div>
     )

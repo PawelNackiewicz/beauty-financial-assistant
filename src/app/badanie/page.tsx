@@ -7,6 +7,7 @@ import { BackButton } from "../../components/button/BackButton";
 import { useSteps } from "../../hooks/useSteps";
 import { FixedCosts } from "./components/FixedCosts";
 import { ResearchProvider, useResearch } from "./ResearchContext";
+import { DepreciationCosts } from "./components/DepreciationCosts";
 
 export default function Page() {
     return (
@@ -33,6 +34,7 @@ const steps = {
     2: AllServices,
     3: CustomerCount,
     4: FixedCosts,
+    5: DepreciationCosts
 }
 
 const ReaserchWrapper = () => {

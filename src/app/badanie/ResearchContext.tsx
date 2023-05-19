@@ -1,4 +1,4 @@
-import { Service } from '@/types';
+import { Cost, Service } from '@/types';
 import React, { SetStateAction, createContext, useContext, useState } from 'react';
 
 interface ResearchContextType {
@@ -6,6 +6,10 @@ interface ResearchContextType {
     setServices: React.Dispatch<SetStateAction<Service[]>>,
     customerCount: number | undefined,
     setCustomerCount: React.Dispatch<SetStateAction<number | undefined>>
+    fixedCosts: Cost[],
+    setFixedCosts: React.Dispatch<SetStateAction<Cost[]>>
+    depreciationCosts: Cost[],
+    setDepreciationCosts: React.Dispatch<SetStateAction<Cost[]>>
 
     currentStep: number,
     goNext: () => void,
@@ -20,6 +24,8 @@ export function ResearchProvider({
     const [services, setServices] = useState<Service[]>([])
     const [currentStep, setCurrentStep] = useState(1)
     const [customerCount, setCustomerCount] = useState<number | undefined>(undefined)
+    const [fixedCosts, setFixedCosts] = useState<Cost[]>([])
+    const [depreciationCosts, setDepreciationCosts] = useState<Cost[]>([])
 
     const goNext = () => {
         setCurrentStep(currentStep + 1)
@@ -36,6 +42,11 @@ export function ResearchProvider({
                 setServices,
                 customerCount,
                 setCustomerCount,
+                fixedCosts,
+                setFixedCosts,
+                depreciationCosts,
+                setDepreciationCosts,
+
                 currentStep,
                 goNext,
                 goBack

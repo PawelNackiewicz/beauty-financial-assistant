@@ -5,7 +5,7 @@ interface RemoveButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 export const RemoveButton: FC<RemoveButtonProps> = ({ onClick, ...rest }) => {
-    return <button onClick={onClick} {...rest}>
+    return <button type='button' onClick={onClick} {...rest}>
         <MinusIcon />
     </button>
 };
