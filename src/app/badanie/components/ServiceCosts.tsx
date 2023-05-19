@@ -11,7 +11,7 @@ export const ServiceCosts = () => {
 
     return (
         <div>
-            {services.map(e => <SingleServiceCosts service={e} />)}
+            {services.map((e, i) => <SingleServiceCosts key={`${e.serviceName}_${i}`} service={e} />)}
 
             <Button type="submit" className="self-end mt-10" label="Dalej" onClick={goNext} />
 
