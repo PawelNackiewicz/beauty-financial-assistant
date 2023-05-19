@@ -13,7 +13,7 @@ export const useSteps = <T extends Step<string>>(steps: readonly T[], initialSte
 
     const handleNextStep = () => {
         if (currentStepIndex < steps.length - 1) {
-            setCurrentStepIndex(currentStepIndex + 1);
+            (currentStepIndex + 1);
         }
     };
 

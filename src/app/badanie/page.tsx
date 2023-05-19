@@ -6,14 +6,17 @@ import { CustomerCount } from "./components/CustomerCount";
 import { BackButton } from "../../components/button/BackButton";
 import { useSteps } from "../../hooks/useSteps";
 import { FixedCosts } from "./components/FixedCosts";
+import { ResearchProvider, useResearch } from "./ResearchContext";
 
 export default function Page() {
     return (
-        <ReaserchWrapper />
+        <ResearchProvider>
+            <ReaserchWrapper />
+        </ResearchProvider>
     )
 }
 
-const steps = [
+const stepss = [
     { name: 'Step1', component: <Welcome /> },
     { name: 'Step2', component: <AllServices /> },
     { name: 'Step3', component: <CustomerCount /> },
@@ -24,15 +27,23 @@ const steps = [
     // { name: 'Step8', component: <End /> }, // koniec
 ] as const;
 
+
+const steps = {
+    1: Welcome,
+    2: AllServices,
+    3: CustomerCount,
+    4: FixedCosts,
+}
+
 const ReaserchWrapper = () => {
-    const { currentStep, handlePrevStep, handleNextStep, currentStepIndex } = useSteps(steps);
+    const { currentStep, goBack } = useResearch();
+    const CurrentStep = steps[currentStep as keyof typeof steps]
     return (
         <div className="flex flex-col">
-            {currentStepIndex > 0 && <BackButton onClick={handlePrevStep} />}
+            {currentStep > 0 && <BackButton onClick={goBack} />}
             <div className="my-10">
-                {currentStep.component}
+                <CurrentStep />
             </div>
-            <Button className="self-end" label="Dalej" onClick={handleNextStep} />
         </div>
     )
 }

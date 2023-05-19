@@ -2,17 +2,17 @@ import { useForm, useFieldArray } from "react-hook-form";
 import { Typography } from "@/components/typography/Typography";
 import { RemoveButton } from "@/components/button/RemoveButton";
 import { AddServiceButton } from "@/app/badanie/components/AddServiceButton";
-
-type Service = {
-    serviceName?: string
-}
+import { Button } from "../../../components/button/Button";
+import { useResearch } from "../ResearchContext";
+import { Service } from "@/types";
 
 type FormData = {
     services: Service[];
 };
 
 export const AllServices = () => {
-    const { register, control, handleSubmit, reset, watch } = useForm<FormData>({
+    const { goNext, setServices } = useResearch()
+    const { register, control, handleSubmit, formState: { errors } } = useForm<FormData>({
         defaultValues: {
             services: [{ serviceName: "" }]
         }
@@ -24,7 +24,11 @@ export const AllServices = () => {
         }
     );
 
-    const onSubmit = (data: any) => console.log("data", data);
+    const onSubmit = (data: FormData) => {
+        console.log("data", data)
+        setServices(data.services)
+        goNext()
+    }
 
     return (
         <div>
@@ -37,16 +41,20 @@ export const AllServices = () => {
                                 <input
                                     className="rounded-lg border-2 border-gray-300 bg-gray-100 w-full px-4 shadow-sm"
                                     defaultValue={`${item.serviceName}`}
-                                    {...register(`services.${index}.serviceName`)}
+                                    {...register(`services.${index}.serviceName`, { required: true })}
                                 />
                                 <RemoveButton onClick={() => remove(index)} />
                             </li>
                         );
                     })}
                 </ul>
+                {errors && errors.services && <span className="text-xs text-red-500 mt-2" role="alert">Pole jest wymagane</span>}
+
                 <AddServiceButton onClick={() => {
                     append({ serviceName: "" });
                 }} />
+
+                <Button type="submit" className="self-end" label="Dalej" onClick={handleSubmit(onSubmit)} />
             </form>
         </div>
     )
