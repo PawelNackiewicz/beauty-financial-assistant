@@ -42,12 +42,12 @@ const ReaserchWrapper = () => {
     const { currentStep, goBack } = useResearch();
     const CurrentStep = steps[currentStep as keyof typeof steps]
     return (
-        <div className="flex w-full h-full items-center">
+        <div className="flex w-full h-full items-center flex-col md:flex-row">
             <div className="basis-2/5">
                 <SideBox text={sideBoxLabels[currentStep - 1]} />
             </div>
-            <div className="flex flex-col basis-3/5 items-center bg-gray-100 h-full justify-center">
-                <div>
+            <div className="flex flex-col basis-3/5 items-center bg-gray-100 h-full w-full justify-center">
+                <div className="p-4">
                     {currentStep > 1 && <BackButton onClick={goBack} />}
                     <div className="my-10">
                         <CurrentStep />
