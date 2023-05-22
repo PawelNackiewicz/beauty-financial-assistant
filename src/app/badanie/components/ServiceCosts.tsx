@@ -5,16 +5,27 @@ import { Cost, Service } from "../../../types";
 import { useResearch } from "../ResearchContext";
 import { AddServiceButton } from "./AddServiceButton";
 import { RemoveButton } from "../../../components/button/RemoveButton";
+import { useSteps } from "@/hooks/useSteps";
+import { FC, useState } from "react";
 
 export const ServiceCosts = () => {
-    const { services, goNext } = useResearch()
+    const { services, goBack, goNext } = useResearch()
+    const [step, setStep] = useState(0)
+
+    const goNextService = () => {
+        setStep(prev => prev + 1)
+    }
+
+    const goBackService = () => {
+        if (step > 0) setStep(prev => prev - 1)
+    }
+
+    console.log(step);
+    console.log(services.length);
 
     return (
         <div>
-            {services.map((e, i) => <SingleServiceCosts key={`${e.serviceName}_${i}`} service={e} />)}
-
-            <Button type="submit" className="self-end mt-10" label="Dalej" onClick={goNext} />
-
+            <SingleServiceCosts service={services[step]} goBack={step === 0 ? goBack : goBackService} goNext={step === services.length - 1 ? goNext : goNextService} />
         </div>
     )
 };
@@ -25,10 +36,12 @@ type FormData = {
 };
 
 interface SingleServiceCostsProps {
-    service: Service
+    service: Service,
+    goNext: () => void,
+    goBack: () => void
 }
 
-const SingleServiceCosts = ({ service }: SingleServiceCostsProps) => {
+const SingleServiceCosts: FC<SingleServiceCostsProps> = ({ service, goBack, goNext }) => {
     const { register, control, handleSubmit, formState: { errors } } = useForm<FormData>({
         defaultValues: {
             serviceCosts: [{ costName: "", costCount: 0 }]
@@ -43,6 +56,7 @@ const SingleServiceCosts = ({ service }: SingleServiceCostsProps) => {
 
     const onSubmit = (data: FormData) => {
         console.log(data);
+        goNext()
     }
 
     return (
@@ -81,6 +95,7 @@ const SingleServiceCosts = ({ service }: SingleServiceCostsProps) => {
                     }}
                 />
                 <Button type="submit" className="self-end mt-10" label="Dalej" onClick={handleSubmit(onSubmit)} />
+
 
             </form>
         </div>
