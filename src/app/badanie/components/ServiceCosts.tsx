@@ -20,9 +20,6 @@ export const ServiceCosts = () => {
         if (step > 0) setStep(prev => prev - 1)
     }
 
-    console.log(step);
-    console.log(services.length);
-
     return (
         <div>
             <SingleServiceCosts service={services[step]} goBack={step === 0 ? goBack : goBackService} goNext={step === services.length - 1 ? goNext : goNextService} />
@@ -53,9 +50,10 @@ const SingleServiceCosts: FC<SingleServiceCostsProps> = ({ service, goBack, goNe
             name: "serviceCosts"
         }
     );
+    const { updateServiceCost } = useResearch()
 
     const onSubmit = (data: FormData) => {
-        console.log(data);
+        updateServiceCost(service.serviceName || '', data.serviceCosts)
         goNext()
     }
 
