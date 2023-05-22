@@ -19,6 +19,7 @@ module.exports = {
       ...colors,
       primary: '#034C8C',
       secondary: '#F2BC1B',
+      accent: '#439FD9',
       success: colors.green,
       error: colors.red
     }

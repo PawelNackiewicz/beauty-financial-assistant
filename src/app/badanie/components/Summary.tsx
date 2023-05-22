@@ -1,10 +1,11 @@
+import { Button } from "@/components/button/Button";
 import { useResearch } from "../ResearchContext";
 
 export const Summary = () => {
     const { depreciationCosts, fixedCosts, serviceCosts, services, customerCount } = useResearch()
 
     return (
-        <div>
+        <div className="flex flex-col items-center gap-2">
             <div className="flex gap-2">
                 <p>Liczba klientow</p>
                 <p>{customerCount}</p>
@@ -45,6 +46,7 @@ export const Summary = () => {
                     </div>)
                 }
             </div>
+            <Button className="mt-10" label="generuj raport" />
         </div>
     )
 };

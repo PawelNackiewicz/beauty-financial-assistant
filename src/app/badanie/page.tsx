@@ -44,12 +44,14 @@ const ReaserchWrapper = () => {
     return (
         <div className="flex w-full h-full items-center">
             <div className="basis-2/5">
-                <SideBox text={sideBoxLabels[currentStep + 1]} />
+                <SideBox text={sideBoxLabels[currentStep - 1]} />
             </div>
             <div className="flex flex-col basis-3/5 items-center bg-gray-100 h-full justify-center">
-                {currentStep > 1 && <BackButton onClick={goBack} />}
-                <div className="my-10">
-                    <CurrentStep />
+                <div>
+                    {currentStep > 1 && <BackButton onClick={goBack} />}
+                    <div className="my-10">
+                        <CurrentStep />
+                    </div>
                 </div>
             </div>
         </div>
