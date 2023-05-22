@@ -8,8 +8,7 @@ export const Welcome = () => {
 
     return (
         <>
-            <Typography variant="body1">Cześć jestem Alex i poprowadzę Cię przez całe badanie.</Typography>
-            <Image src='/panda.svg' alt="panda" width={400} height={400} />
+            <Typography variant="body1">Przygotuj sie do badania</Typography>
             <Button className="self-end" label="Dalej" onClick={goNext} />
         </>
     )
