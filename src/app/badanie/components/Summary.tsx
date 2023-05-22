@@ -1,5 +1,9 @@
 import { Button } from "@/components/button/Button";
 import { useResearch } from "../ResearchContext";
+import React, { FC, PureComponent } from 'react';
+import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from 'recharts';
+import { Cost } from "@/types";
+
 
 export const Summary = () => {
     const { depreciationCosts, fixedCosts, serviceCosts, services, customerCount } = useResearch()
@@ -37,12 +41,13 @@ export const Summary = () => {
             <div className="flex gap-2">
                 <p>Koszty usług</p>
                 {
-                    serviceCosts.map(e => <div key={e.serviceName} className="flex gap-2">
+                    serviceCosts.map(e => <div key={e.serviceName} className="flex flex-col gap-2">
                         <p>{e.serviceName}</p>
                         {e.costs.map(e => <div className="flex gap-2" key={e.costName}>
                             <p>{e.costName}</p>
                             <p>{e.costCount}</p>
                         </div>)}
+                        <Chart costs={e.costs} />
                     </div>)
                 }
             </div>
@@ -50,3 +55,31 @@ export const Summary = () => {
         </div>
     )
 };
+
+interface ChartProps {
+    costs: Cost[]
+}
+
+const Chart: FC<ChartProps> = ({ costs }) => {
+    const data = costs.map(e => ({ name: e.costName, value: parseInt(e.costCount?.toString() || '') }))
+    const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+
+    return (
+        <PieChart width={400} height={200} >
+            <Pie
+                data={data}
+                cx={120}
+                cy={200}
+                innerRadius={60}
+                outerRadius={80}
+                fill="#8884d8"
+                paddingAngle={5}
+                dataKey="value"
+            >
+                {data.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                ))}
+            </Pie>
+        </PieChart>
+    );
+}
