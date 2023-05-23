@@ -1,11 +1,12 @@
+'use client'
 import { Button } from "@/components/button/Button";
 import { useResearch } from "../ResearchContext";
-import React, { FC, PureComponent } from 'react';
-import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from 'recharts';
+import React, { FC } from 'react';
+import { PieChart, Pie, Cell } from 'recharts';
 import { Cost } from "@/types";
 
 
-export const Summary = () => {
+export const Susmmary = () => {
     const { depreciationCosts, fixedCosts, serviceCosts, services, customerCount } = useResearch()
 
     return (
@@ -60,7 +61,7 @@ interface ChartProps {
     costs: Cost[]
 }
 
-const Chart: FC<ChartProps> = ({ costs }) => {
+export const Chart: FC<ChartProps> = ({ costs }) => {
     const data = costs.map(e => ({ name: e.costName, value: parseInt(e.costCount?.toString() || '') }))
     const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
