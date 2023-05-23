@@ -5,6 +5,8 @@ import { AddServiceButton } from "@/app/badanie/components/AddServiceButton";
 import { Button } from "../../../components/button/Button";
 import { useResearch } from "../ResearchContext";
 import { Service } from "@/types";
+import { useEffect, useState } from "react";
+import { useLocalStorageState } from "@/hooks/useLocalStorageState";
 
 type FormData = {
     services: Service[];
@@ -12,7 +14,7 @@ type FormData = {
 
 export const AllServices = () => {
     const { goNext, setServices } = useResearch()
-    const { register, control, handleSubmit, formState: { errors } } = useForm<FormData>({
+    const { register, control, handleSubmit, formState: { errors }, setFocus } = useForm<FormData>({
         defaultValues: {
             services: [{ serviceName: "" }]
         }
@@ -28,6 +30,10 @@ export const AllServices = () => {
         setServices(data.services)
         goNext()
     }
+
+    useEffect(() => {
+        setFocus('services', { shouldSelect: true })
+    }, [])
 
     return (
         <div>

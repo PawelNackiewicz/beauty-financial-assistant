@@ -4,7 +4,9 @@ export interface Service {
 
 export interface Cost {
     costName?: string,
-    costCount?: number
+    costCount?: number,
+    servicesCount?: number,
+    productCountPerService?: number
 }
 
 export interface ServiceCost {

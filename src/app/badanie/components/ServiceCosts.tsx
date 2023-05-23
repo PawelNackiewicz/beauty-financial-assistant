@@ -5,7 +5,6 @@ import { Cost, Service } from "../../../types";
 import { useResearch } from "../ResearchContext";
 import { AddServiceButton } from "./AddServiceButton";
 import { RemoveButton } from "../../../components/button/RemoveButton";
-import { useSteps } from "@/hooks/useSteps";
 import { FC, useState } from "react";
 
 export const ServiceCosts = () => {
@@ -38,10 +37,10 @@ interface SingleServiceCostsProps {
     goBack: () => void
 }
 
-const SingleServiceCosts: FC<SingleServiceCostsProps> = ({ service, goBack, goNext }) => {
+const SingleServiceCosts: FC<SingleServiceCostsProps> = ({ service, goNext }) => {
     const { register, control, handleSubmit, formState: { errors } } = useForm<FormData>({
         defaultValues: {
-            serviceCosts: [{ costName: "", costCount: 0 }]
+            serviceCosts: [{ costName: "", costCount: 0, productCountPerService: 0, servicesCount: 0 }]
         }
     });
     const { fields, append, remove } = useFieldArray(
@@ -62,22 +61,34 @@ const SingleServiceCosts: FC<SingleServiceCostsProps> = ({ service, goBack, goNe
             <Typography variant="h1">Podaj wszystkie koszty dla zabiegu: {service.serviceName}</Typography>
             <form className="flex flex-col items-end" onSubmit={handleSubmit(onSubmit)}>
                 <div className="w-full grid grid-cols-12 gap-2">
-                    <Typography variant="body2" className="col-span-8">Nazwa</Typography>
-                    <Typography variant="body2" className="col-span-3">Kwota</Typography>
+                    <Typography variant="body2" className="col-span-5">Nazwa</Typography>
+                    <Typography variant="body2" className="col-span-2">Kwota</Typography>
+                    <Typography variant="body2" className="col-span-2">Ilość sztuk</Typography>
+                    <Typography variant="body2" className="col-span-2">Sztuki do zabiegu</Typography>
                 </div>
                 <ul className="w-full flex flex-col justify-center gap-1">
                     {fields.map((item, index) => {
                         return (
                             <li key={item.id} className="w-full grid grid-cols-12 gap-2">
                                 <input
-                                    className="rounded-lg border-2 border-gray-300 bg-gray-100 w-full px-4 shadow-sm col-span-8"
+                                    className="rounded-lg border-2 border-gray-300 bg-gray-100 w-full px-4 shadow-sm col-span-5"
                                     defaultValue={`${item.costName}`}
                                     {...register(`serviceCosts.${index}.costName`, { required: true })}
                                 />
                                 <input
-                                    className="rounded-lg border-2 border-gray-300 bg-gray-100 w-full px-4 shadow-sm col-span-3"
+                                    className="rounded-lg border-2 border-gray-300 bg-gray-100 w-full px-4 shadow-sm col-span-2"
                                     defaultValue={`${item.costCount}`}
                                     {...register(`serviceCosts.${index}.costCount`, { required: true })}
+                                />
+                                <input
+                                    className="rounded-lg border-2 border-gray-300 bg-gray-100 w-full px-4 shadow-sm col-span-2"
+                                    defaultValue={`${item.servicesCount}`}
+                                    {...register(`serviceCosts.${index}.servicesCount`, { required: true })}
+                                />
+                                <input
+                                    className="rounded-lg border-2 border-gray-300 bg-gray-100 w-full px-4 shadow-sm col-span-2"
+                                    defaultValue={`${item.productCountPerService}`}
+                                    {...register(`serviceCosts.${index}.productCountPerService`, { required: true })}
                                 />
                                 <RemoveButton className="justify-self-end" onClick={() => remove(index)} />
                             </li>
@@ -89,7 +100,7 @@ const SingleServiceCosts: FC<SingleServiceCostsProps> = ({ service, goBack, goNe
 
                 <AddServiceButton
                     onClick={() => {
-                        append({ costName: "", costCount: 0 });
+                        append({ costName: "", costCount: 0, productCountPerService: 0, servicesCount: 0 });
                     }}
                 />
                 <Button type="submit" className="self-end mt-10" label="Dalej" onClick={handleSubmit(onSubmit)} />

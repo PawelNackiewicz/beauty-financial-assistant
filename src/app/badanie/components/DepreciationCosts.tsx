@@ -14,7 +14,7 @@ export const DepreciationCosts = () => {
     const { goNext, setDepreciationCosts } = useResearch()
     const { register, control, handleSubmit, formState: { errors } } = useForm<FormData>({
         defaultValues: {
-            depreciationCosts: [{ costName: "", costCount: 0 }]
+            depreciationCosts: [{ costName: "", costCount: 0, servicesCount: 0 }]
         }
     });
     const { fields, append, remove } = useFieldArray(
@@ -34,15 +34,16 @@ export const DepreciationCosts = () => {
             <Typography variant="h1">Wymień wszystkie koszty amortyzacji</Typography>
             <form className="flex flex-col items-end" onSubmit={handleSubmit(onSubmit)}>
                 <div className="w-full grid grid-cols-12 gap-2">
-                    <Typography variant="body2" className="col-span-8">Nazwa</Typography>
+                    <Typography variant="body2" className="col-span-5">Nazwa</Typography>
                     <Typography variant="body2" className="col-span-3">Kwota</Typography>
+                    <Typography variant="body2" className="col-span-3">Ilość klientów</Typography>
                 </div>
                 <ul className="w-full flex flex-col justify-center gap-1">
                     {fields.map((item, index) => {
                         return (
                             <li key={item.id} className="w-full grid grid-cols-12 gap-2">
                                 <input
-                                    className="rounded-lg border-2 border-gray-300 bg-gray-100 w-full px-4 shadow-sm col-span-8"
+                                    className="rounded-lg border-2 border-gray-300 bg-gray-100 w-full px-4 shadow-sm col-span-5"
                                     defaultValue={`${item.costName}`}
                                     {...register(`depreciationCosts.${index}.costName`, { required: true })}
                                 />
@@ -50,6 +51,11 @@ export const DepreciationCosts = () => {
                                     className="rounded-lg border-2 border-gray-300 bg-gray-100 w-full px-4 shadow-sm col-span-3"
                                     defaultValue={`${item.costCount}`}
                                     {...register(`depreciationCosts.${index}.costCount`, { required: true })}
+                                />
+                                <input
+                                    className="rounded-lg border-2 border-gray-300 bg-gray-100 w-full px-4 shadow-sm col-span-3"
+                                    defaultValue={`${item.servicesCount}`}
+                                    {...register(`depreciationCosts.${index}.servicesCount`, { required: true })}
                                 />
                                 <RemoveButton className="justify-self-end" onClick={() => remove(index)} />
                             </li>
@@ -61,7 +67,7 @@ export const DepreciationCosts = () => {
 
                 <AddServiceButton
                     onClick={() => {
-                        append({ costName: "", costCount: 0 });
+                        append({ costName: "", costCount: 0, servicesCount: 0 });
                     }}
                 />
                 <Button type="submit" className="self-end mt-10" label="Dalej" onClick={handleSubmit(onSubmit)} />
