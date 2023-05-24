@@ -1,11 +1,11 @@
 'use client'
 import { Button } from "@/components/button/Button";
 import { useResearch } from "../ResearchContext";
-import React, { FC } from 'react';
+import React from 'react';
 import { Typography } from "@/components/typography/Typography";
 
 
-export const Susmmary = () => {
+export const Summary = () => {
     const { depreciationCosts, fixedCosts, serviceCosts, services, customerCount } = useResearch()
 
     return (
@@ -72,7 +72,7 @@ export const Susmmary = () => {
                         </div>
                     )
                 }
-                <Button className="mt-10" label="generuj raport" />
+                <Button className="mt-10" label="Generuj raport" />
             </div>
         </div>
     )
