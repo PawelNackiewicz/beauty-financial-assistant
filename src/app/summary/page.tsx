@@ -1,17 +1,37 @@
 import { Button } from "@/components/button/Button"
-import { Chart } from "../badanie/components/Summary"
 import { calculeteServiceCost } from "@/utils/calculeteServiceCost"
+import { Typography } from "@/components/typography/Typography"
 
 export default function Page() {
     const customerCount = 100
-    const services = [{ serviceName: 'Usługa A' }]
-    const fixedCosts = [{ costName: 'Koszt stały A', costCount: 1000 }]
-    const depreciationCosts = [{ costName: 'Koszt zmienny A', costCount: 1000, servicesCount: 10 }]
+    const services = [{ serviceName: 'Usługa A' }, { serviceName: 'Usługa B' }]
+    const fixedCosts = [
+        { costName: 'Koszt stały A', costCount: 1000 },
+        { costName: 'Koszt stały B', costCount: 1000 },
+        { costName: 'Koszt stały C', costCount: 1000 }
+    ]
+    const depreciationCosts = [
+        { costName: 'Koszt zmienny A', costCount: 1000, servicesCount: 10 },
+        { costName: 'Koszt zmienny B', costCount: 1000, servicesCount: 10 },
+        { costName: 'Koszt zmienny C', costCount: 1000, servicesCount: 10 }
+    ]
     const serviceCosts = [
         {
             serviceName: 'Usługa A', costs: [
                 { costName: 'Koszt Usługi A', costCount: 500, servicesCount: 100, productCountPerService: 5 },
                 { costName: '2. Koszt Usługi A', costCount: 1000, servicesCount: 10, productCountPerService: 1 },
+                { costName: '3. Koszt Usługi A', costCount: 1000, servicesCount: 10, productCountPerService: 1 },
+                { costName: '4. Koszt Usługi A', costCount: 1000, servicesCount: 10, productCountPerService: 1 },
+                { costName: '5. Koszt Usługi A', costCount: 1000, servicesCount: 10, productCountPerService: 1 },
+            ]
+        },
+        {
+            serviceName: 'Usługa B', costs: [
+                { costName: 'Koszt Usługi B', costCount: 500, servicesCount: 100, productCountPerService: 5 },
+                { costName: '2. Koszt Usługi B', costCount: 1000, servicesCount: 10, productCountPerService: 1 },
+                { costName: '3. Koszt Usługi B', costCount: 1000, servicesCount: 10, productCountPerService: 1 },
+                { costName: '4. Koszt Usługi B', costCount: 1000, servicesCount: 10, productCountPerService: 1 },
+                { costName: '5. Koszt Usługi B', costCount: 1000, servicesCount: 10, productCountPerService: 1 },
             ]
         }
     ]
@@ -19,48 +39,67 @@ export default function Page() {
     return (
         <div className="flex w-full h-full items-center flex-col justify-center">
             <div className="flex flex-col items-center gap-2">
+                <Typography variant="h1">Podsumowanie</Typography>
                 <div className="flex gap-2">
-                    <p>Liczba klientow</p>
-                    <p>{customerCount}</p>
+                    <Typography variant="body2">Liczba klientow:</Typography>
+                    <Typography variant="body2">{customerCount}</Typography>
                 </div>
                 <div className="flex gap-2">
-                    <p>Usługi</p>
+                    <Typography variant="body2">Usługi:</Typography>
                     {
-                        services.map(e => <p key={e.serviceName}>{e.serviceName}</p>)
+                        services.map(e => <Typography variant="body2" key={e.serviceName}>{e.serviceName}</Typography>)
                     }
                 </div>
-                <div className="flex gap-2">
-                    <p>Koszty stałe</p>
+                <Typography variant="h3" className="mt-10">Koszty stałe:</Typography>
+                <div className="grid grid-cols-12 gap-2">
+                    <p className="text-xs col-span-8">Nazwa</p>
+                    <p className="text-xs col-span-4">Koszt</p>
                     {
-                        fixedCosts.map(e => <div key={e.costName} className="flex gap-2">
-                            <p>{e.costName}</p>
-                            <p>{e.costCount}</p>
-                        </div>)
+                        fixedCosts.map(e =>
+                            <>
+                                <Typography variant="body2" className="col-span-8">{e.costName}</Typography>
+                                <Typography variant="body2" className="col-span-4">{e.costCount}</Typography>
+                            </>
+                        )
                     }
                 </div>
-                <div className="flex gap-2">
-                    <p>Koszty amortyzacji</p>
+                <Typography variant="h3" className="mt-10">Koszty amortyzacji:</Typography>
+                <div className="grid grid-cols-12 gap-2">
+                    <p className="text-xs col-span-6">Nazwa</p>
+                    <p className="text-xs col-span-3">Koszt</p>
+                    <p className="text-xs col-span-3">Ilość sztuk</p>
                     {
-                        depreciationCosts.map(e => <div key={e.costName} className="flex gap-2">
-                            <p>{e.costName}</p>
-                            <p>{e.costCount}</p>
-                        </div>)
+                        depreciationCosts.map(e =>
+                            <>
+                                <Typography variant="body2" className="col-span-6">{e.costName}</Typography>
+                                <Typography variant="body2" className="col-span-3">{e.costCount}</Typography>
+                                <Typography variant="body2" className="col-span-3">{e.servicesCount}</Typography>
+                            </>
+                        )
                     }
                 </div>
-                <div className="flex gap-2">
-                    <p>Koszty usług</p>
-                    {
-                        serviceCosts.map(e => <div key={e.serviceName} className="flex flex-col gap-2">
-                            <p>{e.serviceName}</p>
-                            {e.costs.map(e => <div className="flex gap-2" key={e.costName}>
-                                <p>{e.costName}</p>
-                                <p>{e.costCount}</p>
-                            </div>)}
-                            <Chart costs={e.costs} />
-                        </div>)
-                    }
-                    <p className="bold">Koszt: {calculeteServiceCost(serviceCosts[0].costs, depreciationCosts, fixedCosts, customerCount, services[0].serviceName)}</p>
-                </div>
+                <Typography variant="body2" className="mt-10">Koszty usług:</Typography>
+                {
+                    serviceCosts.map(e =>
+                        <div key={e.serviceName} className="flex flex-col gap-2">
+                            <Typography variant="h3">{e.serviceName}</Typography>
+                            <div className="grid grid-cols-12 gap-2">
+                                <p className="text-xs col-span-5">Nazwa</p>
+                                <p className="text-xs col-span-3">Koszt</p>
+                                <p className="text-xs col-span-2">Ilość sztuk</p>
+                                <p className="text-xs col-span-2">Ilość sztuk do zabiegu</p>
+                            </div>
+                            {e.costs.map(e =>
+                                <div className="grid grid-cols-12 gap-2" key={e.costName}>
+                                    <Typography variant="body2" className="col-span-5">{e.costName}</Typography>
+                                    <Typography variant="body2" className="col-span-3">{e.costCount}</Typography>
+                                    <Typography variant="body2" className="col-span-2">{e.servicesCount}</Typography>
+                                    <Typography variant="body2" className="col-span-2">{e.productCountPerService}</Typography>
+                                </div>
+                            )}
+                        </div>
+                    )
+                }
                 <Button className="mt-10" label="generuj raport" />
             </div>
         </div>
