@@ -13,3 +13,11 @@ export interface ServiceCost {
     serviceName: string,
     costs: Cost[]
 }
+
+export interface ServiceDetails {
+    serviceName: string
+    serviceCosts: Cost[],
+    depreciationCosts: Cost[],
+    fixedCosts: Cost[],
+    customerCount: number,
+}

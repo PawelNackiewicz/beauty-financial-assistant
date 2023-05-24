@@ -1,6 +1,11 @@
+'use client'
 import { Button } from "@/components/button/Button"
 import { calculeteServiceCost } from "@/utils/calculeteServiceCost"
 import { Typography } from "@/components/typography/Typography"
+import { ServiceDetails } from "@/types"
+import { FC, useState } from "react"
+import { Chart } from "@/components/chart/Chart"
+import { Report } from "../badanie/components/Report"
 
 export default function Page() {
     const customerCount = 100
@@ -35,6 +40,27 @@ export default function Page() {
             ]
         }
     ]
+
+    const [showReport, setShowReport] = useState(false)
+
+    const servicesToReport: ServiceDetails[] = [
+        {
+            serviceName: services[0].serviceName,
+            customerCount,
+            depreciationCosts,
+            fixedCosts,
+            serviceCosts: serviceCosts[0].costs
+        },
+        {
+            serviceName: services[1].serviceName,
+            customerCount,
+            depreciationCosts,
+            fixedCosts,
+            serviceCosts: serviceCosts[1].costs
+        },
+    ]
+
+    if (showReport) return <Report services={servicesToReport} />
 
     return (
         <div className="flex w-full h-full items-center flex-col justify-center">
@@ -100,7 +126,7 @@ export default function Page() {
                         </div>
                     )
                 }
-                <Button className="mt-10" label="generuj raport" />
+                <Button className="mt-10" label="generuj raport" onClick={() => setShowReport(true)} />
             </div>
         </div>
     )
