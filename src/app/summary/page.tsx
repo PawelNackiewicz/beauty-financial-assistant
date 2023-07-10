@@ -1,10 +1,8 @@
 'use client'
 import { Button } from "@/components/button/Button"
-import { calculeteServiceCost } from "@/utils/calculeteServiceCost"
 import { Typography } from "@/components/typography/Typography"
 import { ServiceDetails } from "@/types"
-import { FC, useState } from "react"
-import { Chart } from "@/components/chart/Chart"
+import { useState } from "react"
 import { Report } from "../badanie/components/Report"
 
 export default function Page() {

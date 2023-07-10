@@ -2,7 +2,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSelectedLayoutSegment } from 'next/navigation';
-import { Button } from '../button/Button';
+import { useSession, signIn, signOut } from "next-auth/react"
 
 const links = [
     {
@@ -18,6 +18,8 @@ const links = [
 
 export const Navigation = () => {
     const segment = useSelectedLayoutSegment()
+    const { data: session } = useSession()
+
     return (
         <nav className='flex flex-row w-full justify-between items-center p-4 border-b-2'>
             <Link href="/">
@@ -36,6 +38,7 @@ export const Navigation = () => {
                         </Link>
                     </li>
                 )}
+                {session ? <button onClick={() => signOut}>Wyloguj sie</button> : <button onClick={() => signIn}>Zaloguj sie</button>}
             </ul>
         </nav>)
 };

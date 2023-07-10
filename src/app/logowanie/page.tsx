@@ -3,6 +3,7 @@ import { Button } from "@/components/button/Button";
 import { Input } from "@/components/form/input/Input";
 import { Typography } from "@/components/typography/Typography"
 import { useForm } from "react-hook-form";
+import { signIn } from "next-auth/react";
 
 export interface LoginFormInputs {
     login?: string
@@ -13,6 +14,7 @@ export default function Page() {
     const { register, handleSubmit, formState: { errors }, reset } = useForm<LoginFormInputs>();
     const onSubmit = (data: LoginFormInputs) => {
         console.log(data);
+        signIn()
     };
 
     return (
